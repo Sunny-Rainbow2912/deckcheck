@@ -93,7 +93,7 @@ class EquipmentController extends Controller
         if ($request->has('reset')) {
             session()->forget('visible_columns');
 
-            $redirectRoute = $isManifestContext ? 'maintenance.manifest.index' : 'equipment.index';
+            $redirectRoute = $isManifestContext ? 'maintenance.manifest.index' : 'inventory.equipment';
 
             return redirect()->route($redirectRoute)->with('success', 'Column preferences reset to default.');
         }
@@ -106,7 +106,7 @@ class EquipmentController extends Controller
 
         session(['visible_columns' => $validated['columns'] ?? []]);
 
-        $redirectRoute = $isManifestContext ? 'maintenance.manifest.index' : 'equipment.index';
+        $redirectRoute = $isManifestContext ? 'maintenance.manifest.index' : 'inventory.equipment';
 
         return redirect()->route($redirectRoute)->with('success', 'Visible columns updated.');
     }

@@ -17,6 +17,7 @@
 
     // Determine context based on explicit context parameter
     $isInventory = $context === 'inventory';
+    $isManifest = $context === 'maintenance' && $activeTab === 'manifest';
 
     if ($isInventory) {
         // Inventory tabs
@@ -178,6 +179,145 @@
                 $lastBreadcrumb = array_pop($breadcrumbs);
                 if (isset($lastBreadcrumb['active']) && $lastBreadcrumb['active']) {
                     $lastBreadcrumb['url'] = route('equipment-intervals.show', $refererContext['interval']);
+                    unset($lastBreadcrumb['active']);
+                }
+                $breadcrumbs[] = $lastBreadcrumb;
+
+                // Get work order ID from the current request
+                $workOrderId = request()->route('workOrder')->id ?? 'Unknown';
+                $breadcrumbs[] = ['label' => 'Record #' . $workOrderId, 'active' => true];
+            }
+        }
+
+        // Handle manifest context breadcrumbs
+        if ($isManifest && isset($refererContext['equipment'])) {
+            $equipment = $refererContext['equipment'];
+
+            // Route paths (relative)
+            $maintenanceIndexPath = route('maintenance.index', [], false);
+            $manifestIndexPath = route('maintenance.manifest.index', [], false);
+            $categoryShowPathPattern = route('maintenance.show', ['category' => $equipment->category->id], false);
+
+            if (Str::startsWith($refererPath, $maintenanceIndexPath)) {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => $equipment->category->name, 'url' => route('maintenance.show', $equipment->category)],
+                    ['label' => $equipment->name, 'active' => true]
+                ];
+            } elseif (Str::startsWith($refererPath, $categoryShowPathPattern)) {
+                $breadcrumbs = [
+                    [
+                        'label' => $equipment->category->name,
+                        'url' => route('maintenance.showCategory', $equipment->category)
+                    ],
+                    ['label' => $equipment->name, 'active' => true]
+                ];
+            } elseif (Str::startsWith($refererPath, $manifestIndexPath)) {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => 'Manifest', 'url' => route('maintenance.manifest.index')],
+                    ['label' => $equipment->name, 'active' => true]
+                ];
+            } else {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => 'Manifest', 'url' => route('maintenance.manifest.index')],
+                    ['label' => $equipment->name, 'active' => true]
+                ];
+            }
+        }
+
+        // Handle manifest interval context
+        if ($isManifest && isset($refererContext['interval'])) {
+            $interval = $refererContext['interval'];
+            $equipment = $interval->equipment;
+
+            // Route paths (relative)
+            $maintenanceIndexPath = route('maintenance.index', [], false);
+            $manifestIndexPath = route('maintenance.manifest.index', [], false);
+            $categoryShowPathPattern = route('maintenance.show', ['category' => $equipment->category->id], false);
+            $equipmentShowPath = route('maintenance.manifest.show', $equipment, false);
+
+            if (Str::startsWith($refererPath, $maintenanceIndexPath)) {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => $equipment->category->name, 'url' => route('maintenance.show', $equipment->category)],
+                    ['label' => $equipment->name, 'url' => route('maintenance.manifest.show', $equipment)],
+                    ['label' => ucfirst($interval->frequency) . ' ' . $interval->description, 'active' => true]
+                ];
+            } elseif (Str::startsWith($refererPath, $categoryShowPathPattern)) {
+                $breadcrumbs = [
+                    [
+                        'label' => $equipment->category->name,
+                        'url' => route('maintenance.showCategory', $equipment->category)
+                    ],
+                    ['label' => $equipment->name, 'url' => route('maintenance.manifest.show', $equipment)],
+                    ['label' => ucfirst($interval->frequency) . ' ' . $interval->description, 'active' => true]
+                ];
+            } elseif (Str::startsWith($refererPath, $manifestIndexPath)) {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => 'Manifest', 'url' => route('maintenance.manifest.index')],
+                    ['label' => $equipment->name, 'url' => route('maintenance.manifest.show', $equipment)],
+                    ['label' => ucfirst($interval->frequency) . ' ' . $interval->description, 'active' => true]
+                ];
+            } elseif (Str::startsWith($refererPath, $equipmentShowPath)) {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => 'Manifest', 'url' => route('maintenance.manifest.index')],
+                    ['label' => $equipment->name, 'url' => route('maintenance.manifest.show', $equipment)],
+                    ['label' => ucfirst($interval->frequency) . ' ' . $interval->description, 'active' => true]
+                ];
+            } else {
+                $breadcrumbs = [
+                    [
+                        'label' => 'Maintenance',
+                        'icon' => asset('assets/media/icons/sidebar-solid-wrench-scredriver.svg'),
+                        'url' => route('maintenance.index')
+                    ],
+                    ['label' => 'Manifest', 'url' => route('maintenance.manifest.index')],
+                    ['label' => $equipment->name, 'url' => route('maintenance.manifest.show', $equipment)],
+                    ['label' => ucfirst($interval->frequency) . ' ' . $interval->description, 'active' => true]
+                ];
+            }
+        }
+
+        // Handle manifest work order context - add "Record #X" to interval breadcrumbs
+        if (
+            $isManifest &&
+            isset($refererContext['interval']) &&
+            request()->routeIs('maintenance.manifest.work-orders.show')
+        ) {
+            // Add "Record #X" as the final breadcrumb
+            if (isset($breadcrumbs) && count($breadcrumbs) > 0) {
+                // Remove 'active' from the last breadcrumb and add URL
+                $lastBreadcrumb = array_pop($breadcrumbs);
+                if (isset($lastBreadcrumb['active']) && $lastBreadcrumb['active']) {
+                    $lastBreadcrumb['url'] = route('maintenance.manifest.intervals.show', $refererContext['interval']);
                     unset($lastBreadcrumb['active']);
                 }
                 $breadcrumbs[] = $lastBreadcrumb;
