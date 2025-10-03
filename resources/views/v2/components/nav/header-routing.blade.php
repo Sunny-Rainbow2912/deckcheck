@@ -55,7 +55,7 @@
                 'id' => 'manifest',
                 'label' => 'Manifest',
                 'icon' => 'tab-manifest.svg',
-                'route' => 'inventory.index',
+                'route' => 'maintenance.manifest.index',
                 'active' => $activeTab === 'manifest'
             ],
             [
@@ -209,7 +209,7 @@
         @if ($showAnnouncement)
             <div class="absolute left-4 right-4 top-2 sm:left-6 sm:right-auto">
                 <div id="announcement"
-                    class="relative flex min-w-0 max-w-[calc(100vw-8rem)] shrink items-center gap-1.5 overflow-hidden rounded-md border-primary-300 bg-accent-200/40 px-2 py-1 text-xs text-slate-900 transition-all duration-300 ease-out opacity-0 translate-y-2 sm:max-w-md sm:gap-2 sm:px-2.5 sm:text-sm">
+                    class="relative flex min-w-0 max-w-[calc(100vw-8rem)] shrink translate-y-2 items-center gap-1.5 overflow-hidden rounded-md border-primary-300 bg-accent-200/40 px-2 py-1 text-xs text-slate-900 opacity-0 transition-all duration-300 ease-out sm:max-w-md sm:gap-2 sm:px-2.5 sm:text-sm">
                     <span class="absolute bottom-0 left-0 top-0 w-1 rounded-l bg-primary-500"></span>
                     <img src="{{ asset('assets/media/icons/pin-list.svg') }}" alt="pin list"
                         class="h-3 w-3 shrink-0 sm:h-4 sm:w-4" />
