@@ -1,61 +1,293 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# DeckCheck
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive vessel management and maintenance tracking system designed to streamline operations, maintenance scheduling, and compliance tracking for maritime vessels.
 
-## About Laravel
+## 🚢 Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+DeckCheck is a web-based application built for crew management, vessel maintenance, and operational compliance. It provides a smart way to manage admin and SMS compliance, offering solutions built by crew for crew. The system enables efficient tracking of equipment maintenance, work orders, deficiencies, and vessel operations.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Vessel Management
 
-## Learning Laravel
+- **Multi-Vessel Support**: Manage multiple vessels with complete scoping and access control
+- **Vessel Profiles**: Comprehensive vessel information including specifications, contact details, and documentation
+- **Vessel Switching**: Easy navigation between accessible vessels for authorized users
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Maintenance & Work Orders
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Maintenance Templates**: Create reusable maintenance templates with categories, intervals, and tasks
+- **Template Inheritance**: Automatic creation of equipment intervals and work orders from templates
+- **Work Order Management**: Generate, track, and complete work orders with task breakdowns
+- **Equipment Tracking**: Comprehensive equipment inventory with maintenance history
+- **Interval Management**: Schedule recurring maintenance with custom intervals and facilitators
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Deficiency Management
 
-## Laravel Sponsors
+- **Deficiency Tracking**: Record, update, and resolve vessel deficiencies
+- **Status Workflow**: Track deficiency status from identification to resolution
+- **History & Updates**: Maintain complete audit trail of deficiency changes
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### File Management
 
-### Premium Partners
+- **S3 Integration**: Secure file storage with AWS S3 support
+- **File Attachments**: Polymorphic attachment system for any model
+- **File Deduplication**: Automatic file deduplication using SHA256 hashing
+- **Multiple File Types**: Support for documents, images, manuals, and reports
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### User & Access Control
 
-## Contributing
+- **Role-Based Access**: Multiple user roles (superadmin, staff, dev, user)
+- **Vessel Access Control**: System users can access all vessels; regular users access only vessels they're boarded on
+- **Staff Management**: Comprehensive admin panel for managing staff and permissions
+- **User Invitations**: Invite users via email with role-based permissions
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Additional Features
 
-## Code of Conduct
+- **Inventory Management**: Track vessel inventory and equipment
+- **Reports & Analytics**: Generate reports and view business intelligence
+- **Theme System**: Customizable themes and user preferences
+- **Dashboard**: Overview of vessel operations, pending tasks, and key metrics
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠️ Technology Stack
 
-## Security Vulnerabilities
+### Backend
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Framework**: Laravel 12
+- **PHP**: 8.2+
+- **Database**: MySQL/PostgreSQL (configurable)
+- **Storage**: AWS S3 for file storage
+- **Queue**: Laravel Queue System
+- **Testing**: Pest PHP
 
-## License
+### Frontend
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **CSS Framework**: Tailwind CSS 3
+- **JavaScript**: Alpine.js
+- **Build Tool**: Vite 6
+- **Forms**: Tailwind Forms plugin
+
+### Development Tools
+
+- **Code Style**: Laravel Pint
+- **Blade Formatter**: blade-formatter
+- **Prettier**: For JS/CSS formatting
+- **Git Hooks**: Husky with lint-staged
+
+## 📋 Requirements
+
+- PHP 8.2 or higher
+- Composer 2.x
+- Node.js 18+ and npm
+- MySQL 8.0+ or PostgreSQL 13+
+- AWS S3 account (for file storage)
+- Redis (optional, for queues and caching)
+
+## 🚀 Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone git@github.com:Sunny-Rainbow2912/deckcheck.git
+   cd deckcheck
+   ```
+
+2. **Install PHP dependencies**
+
+   ```bash
+   composer install
+   ```
+
+3. **Install Node dependencies**
+
+   ```bash
+   npm install
+   ```
+
+4. **Environment setup**
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Configure environment**
+
+   Edit `.env` file with your database credentials, AWS S3 credentials, and other settings:
+
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=deckcheck
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+
+   AWS_ACCESS_KEY_ID=your_access_key
+   AWS_SECRET_ACCESS_KEY=your_secret_key
+   AWS_DEFAULT_REGION=us-east-1
+   AWS_BUCKET=your_bucket_name
+   ```
+
+6. **Run migrations**
+
+   ```bash
+   php artisan migrate
+   ```
+
+7. **Seed database (optional)**
+
+   ```bash
+   php artisan db:seed
+   ```
+
+8. **Build assets**
+
+   ```bash
+   npm run build
+   ```
+
+9. **Set up storage directories**
+   ```bash
+   php setup-directories.php
+   ```
+
+## 🔧 Development
+
+### Running the application
+
+For development with hot reloading:
+
+```bash
+composer dev
+```
+
+Or run individually:
+
+```bash
+# Terminal 1: Laravel server
+php artisan serve
+
+# Terminal 2: Vite dev server
+npm run dev
+
+# Terminal 3: Queue worker
+php artisan queue:listen
+
+# Terminal 4: Logs
+php artisan pail
+```
+
+### Code Formatting
+
+Format PHP code:
+
+```bash
+composer format:php
+# or
+vendor/bin/pint
+```
+
+Format Blade templates:
+
+```bash
+npm run format:blade
+```
+
+Format JavaScript/CSS:
+
+```bash
+npm run format:prettier
+```
+
+### Testing
+
+Run tests:
+
+```bash
+composer test
+# or
+php artisan test
+```
+
+## 📚 Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[Main Documentation](docs/README.md)** - Overview and documentation index
+- **[Vessel Access System](docs/VESSEL_ACCESS_SYSTEM_DOCUMENTATION.md)** - Access control documentation
+- **[User Management](docs/USER_MANAGEMENT_README.md)** - User roles and permissions
+- **[Staff Management](docs/STAFF_MANAGEMENT_README.md)** - Admin panel and staff management
+- **[File Upload System](docs/FILE_UPLOAD_SYSTEM.md)** - File storage and attachment system
+- **[Maintenance Templates](docs/MAINTENANCE_TEMPLATES_AND_INHERITANCE.md)** - Maintenance template inheritance
+- **[Theme System](docs/THEME_SYSTEM.md)** - Theming and customization
+
+## 🏗️ Project Structure
+
+```
+deckcheck/
+├── app/
+│   ├── Console/Commands/     # Artisan commands
+│   ├── Http/
+│   │   ├── Controllers/     # Application controllers
+│   │   ├── Middleware/      # Custom middleware
+│   │   └── Requests/        # Form request validation
+│   ├── Mail/                # Email notifications
+│   ├── Models/              # Eloquent models
+│   ├── Observers/           # Model observers
+│   ├── Providers/           # Service providers
+│   ├── Services/            # Business logic services
+│   └── View/Components/     # Blade components
+├── database/
+│   ├── migrations/          # Database migrations
+│   ├── seeders/             # Database seeders
+│   └── factories/           # Model factories
+├── docs/                    # Documentation
+├── public/                  # Public assets
+├── resources/
+│   ├── css/                 # Stylesheets
+│   ├── js/                  # JavaScript files
+│   └── views/               # Blade templates
+├── routes/                  # Route definitions
+└── tests/                   # Test files
+```
+
+## 🔐 Security
+
+- **Vessel Access Control**: All routes protected by vessel access middleware
+- **Role-Based Permissions**: Multiple security layers with role checking
+- **CSRF Protection**: Laravel's built-in CSRF protection
+- **File Security**: Secure file storage with proper access controls
+- **Password Hashing**: Bcrypt password hashing
+- **SQL Injection Prevention**: Eloquent ORM with parameter binding
+
+## 👥 User Roles
+
+- **superadmin**: Full system access, can manage all vessels and users
+- **staff**: Vessel management, maintenance tools, reports
+- **dev**: Development access
+- **user**: Regular user with vessel-specific access based on boarding records
+
+## 🐳 Docker Support
+
+Docker configuration files are included:
+
+- `docker-compose.yml` - Main Docker Compose configuration
+- `docker-compose.override.yml` - Local overrides
+- `Dockerfile` - Application container definition
+
+## 📝 License
+
+This project is proprietary software. All rights reserved.
+
+## 🤝 Contributing
+
+This is a private repository. For questions or support, please contact the development team.
+
+## 📧 Contact
+
+For inquiries or support, please contact: rainbow18831@gmail.com
+
+---
+
+**Built with ❤️ for maritime professionals**
